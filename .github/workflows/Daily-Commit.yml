@@ -2,8 +2,9 @@ name: Daily Commit Workflow
 
 on:
   schedule:
-    # Runs daily at 09:15 UTC (adjust if you need another time)
+    # Runs daily at 09:15 UTC
     - cron: '15 9 * * *'
+  workflow_dispatch:  # 👈 allows manual trigger
 
 jobs:
   daily-commit:
