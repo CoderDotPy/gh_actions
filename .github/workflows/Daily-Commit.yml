@@ -1,0 +1,28 @@
+name: Daily Commit Workflow
+
+on:
+  schedule:
+    # Runs daily at 09:15 UTC (adjust if you need another time)
+    - cron: '15 9 * * *'
+
+jobs:
+  daily-commit:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Make a Change (22f3000814@ds.study.iitm.ac.in)
+        run: |
+          echo "Last run: $(date -u)" > .github/last-run.txt
+
+      - name: Configure Git
+        run: |
+          git config --global user.name "DevSync Bot"
+          git config --global user.email "22f3000814@ds.study.iitm.ac.in"
+
+      - name: Commit Changes
+        run: |
+          git add .github/last-run.txt
+          git commit -m "Automated daily commit at $(date -u)" || echo "No changes to commit"
+          git push
